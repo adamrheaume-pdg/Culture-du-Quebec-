@@ -1,0 +1,3 @@
+package quebec.culture.donnees;
+import android.content.*;import android.graphics.*;import android.view.*;
+public class DataBarView extends View{private int good=100,warn=0,bad=0;private final Paint p=new Paint(1);public DataBarView(Context c){super(c);}public void setValues(int g,int w,int b){good=Math.max(0,g);warn=Math.max(0,w);bad=Math.max(0,b);invalidate();}@Override protected void onDraw(Canvas c){super.onDraw(c);float total=Math.max(1,good+warn+bad),x=0,w=getWidth();p.setColor(Color.rgb(20,108,67));float a=w*good/total;c.drawRect(x,0,x+a,getHeight(),p);x+=a;p.setColor(Color.rgb(200,125,0));a=w*warn/total;c.drawRect(x,0,x+a,getHeight(),p);x+=a;p.setColor(Color.rgb(190,40,40));c.drawRect(x,0,w,getHeight(),p);}}
