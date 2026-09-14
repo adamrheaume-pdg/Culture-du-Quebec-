@@ -28,22 +28,22 @@ jobs:
       - name: Build release AAB
         run: gradle :app:bundleRelease --stacktrace
       - name: Create source ZIP
-        run: git archive --format=zip --output=Culture-du-Quebec-Source-3.8.0.zip HEAD
+        run: git archive --format=zip --output=Culture-du-Quebec-Source-3.9.0.zip HEAD
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Culture-du-Quebec-3.8.0-APK
+          name: Culture-du-Quebec-3.9.0-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
       - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
-          name: Culture-du-Quebec-3.8.0-AAB
+          name: Culture-du-Quebec-3.9.0-AAB
           path: app/build/outputs/bundle/release/app-release.aab
           if-no-files-found: error
       - name: Upload source backup
         uses: actions/upload-artifact@v4
         with:
-          name: Culture-du-Quebec-Source-3.8.0
-          path: Culture-du-Quebec-Source-3.8.0.zip
+          name: Culture-du-Quebec-Source-3.9.0
+          path: Culture-du-Quebec-Source-3.9.0.zip
           if-no-files-found: error
