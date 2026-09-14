@@ -10,8 +10,8 @@ android {
         applicationId = "quebec.culture.donnees"
         minSdk = 26
         targetSdk = 35
-        versionCode = 18
-        versionName = "2.7.0"
+        versionCode = 19
+        versionName = "2.8.0"
     }
 
     buildTypes {
