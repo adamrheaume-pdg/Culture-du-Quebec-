@@ -1,0 +1,8 @@
+package quebec.culture.donnees;
+import org.junit.Test;import java.io.*;import java.nio.charset.StandardCharsets;import java.util.*;import static org.junit.Assert.*;
+public class CoreRegressionTest{
+ @Test public void csvQuotedAndSemicolon()throws Exception{String x="titre;ville;note\n\"Film; test\";montréal;\"a \"\"quote\"\"\"\n";List<List<String>> r=SpreadsheetReader.readCsv(new ByteArrayInputStream(x.getBytes(StandardCharsets.UTF_8)));assertEquals(2,r.size());assertEquals("Film; test",r.get(1).get(0));assertEquals("a \"quote\"",r.get(1).get(2));}
+ @Test public void csvRoundTrip()throws Exception{List<List<String>> in=List.of(List.of("titre","note"),List.of("A, B","ligne\n2"));String csv=SpreadsheetReader.toCsv(in);List<List<String>> out=SpreadsheetReader.readCsv(new ByteArrayInputStream(csv.getBytes(StandardCharsets.UTF_8)));assertEquals("A, B",out.get(1).get(0));assertEquals("ligne\n2",out.get(1).get(1));}
+ @Test public void normalizerKeepsAuditAndNormalizes() {List<List<String>> in=new ArrayList<>();in.add(List.of("Title","Municipalité","Date"));in.add(List.of("Spectacle","MONTRÉAL","2/9/2026"));DataNormalizer.Report r=DataNormalizer.normalize(in,DataNormalizer.Sector.SCENE);assertEquals(1,r.rows);assertEquals("titre",r.cleaned.get(0).get(0));assertEquals("Montréal",r.cleaned.get(1).get(1));assertEquals("2026-09-02",r.cleaned.get(1).get(2));assertEquals(3,r.mappings.size());}
+ @Test public void duplicateRowsAreDetected(){List<List<String>> in=List.of(List.of("titre"),List.of("A"),List.of("A"));DataNormalizer.Report r=DataNormalizer.normalize(in,DataNormalizer.Sector.LIVRE);assertEquals(1,r.duplicateRows);}
+}
